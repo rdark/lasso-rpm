@@ -1,0 +1,11 @@
+--- lasso/lasso.c.orig	2014-09-16 04:14:01.164027663 -0700
++++ lasso/lasso.c	2014-09-16 04:14:19.169031980 -0700
+@@ -175,7 +175,7 @@
+ 	 * xmlsec-crypto library.
+ 	 */
+ #ifdef XMLSEC_CRYPTO_DYNAMIC_LOADING
+-	if (xmlSecCryptoDLLoadLibrary(BAD_CAST XMLSEC_CRYPTO) < 0) {
++	if (xmlSecCryptoDLLoadLibrary(BAD_CAST "openssl") < 0) {
+ 		message(G_LOG_LEVEL_CRITICAL,
+ 				"Unable to load default xmlsec-crypto library. Make sure"
+ 				"that you have it installed and check shared libraries path"
