@@ -19,6 +19,7 @@ Release: 1%{?dist}
 License: GPL
 Group: System Environment/Libraries
 Source: https://dev.entrouvert.org/releases/lasso/lasso-%{version}.tar.gz
+Patch0: 0001-xmlsec-bug5062-lasso.c.patch
 Buildroot: %{_tmppath}/%{name}-%{version}-%(id -u -n)
 %if %{with_wsf}
 BuildRequires: cyrus-sasl-devel
@@ -118,6 +119,8 @@ supplied by %{name}.
 
 %prep
 %setup -q -n %{name}-%{version}
+# workaround for https://dev.entrouvert.org/issues/5062
+%patch0 -p0
 
 %build
 %configure --prefix=%{_prefix} \
@@ -189,7 +192,8 @@ rm -rf %{buildroot}
 %files devel
 %defattr(-,root,root)
 %doc %{_defaultdocdir}/%{name}
-%doc %{_datadir}/gtk-doc/html/%{name}
+# %doc %{_datadir}/gtk-doc/html/%{name}
+%doc %{_datadir}/gtk-doc/html
 %{_libdir}/pkgconfig/lasso.pc
 %{_includedir}/%{name}
 
@@ -220,8 +224,9 @@ rm -rf %{buildroot}
 %endif
 
 %changelog
-* Fri Aug 29 2014 Richard Clark <rclark@telnic.org> 2.4.1-1%{?dist}
+* Tue Sep 16 2014 Richard Clark <rclark@telnic.org> 2.4.1-1%{?dist}
 - Updated to 2.4.1
+- Patch for CentOS 6.5 builds > https://dev.entrouvert.org/issues/5062
 
 * Mon Sep 10 2012 Benjamin Dauvergne <bdauvergne@entrouvert.com> 2.3.6-1%{?dist}
 - Updated to final 2.3.6
